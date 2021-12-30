@@ -1,4 +1,4 @@
-import { createMachine } from 'xstate';
+import { createMachine, interpret } from 'xstate';
 
 const promiseMachine = createMachine({
   id: 'promise',
@@ -20,3 +20,14 @@ const promiseMachine = createMachine({
 });
 
 export default promiseMachine;
+
+const promiseService = interpret(promiseMachine).onTransition((state) =>
+  console.log(state.value)
+);
+
+// Start the service
+promiseService.start();
+// => 'pending'
+
+promiseService.send({ type: 'RESOLVE' });
+// => 'resolved'
