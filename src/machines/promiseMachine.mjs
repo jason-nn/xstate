@@ -21,13 +21,13 @@ const promiseMachine = createMachine({
 
 export default promiseMachine;
 
-const promiseService = interpret(promiseMachine).onTransition((state) =>
-  console.log(state.value)
-);
+// const promiseService = interpret(promiseMachine).onTransition((state) =>
+//   console.log(state.value)
+// );
 
 // Start the service
-promiseService.start();
+// promiseService.start();
 // => 'pending'
 
-promiseService.send({ type: 'RESOLVE' });
+// promiseService.send({ type: 'RESOLVE' });
 // => 'resolved'
