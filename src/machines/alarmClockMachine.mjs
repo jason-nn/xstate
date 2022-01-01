@@ -1,4 +1,4 @@
-import { assign, createMachine, interpret } from 'xstate';
+import { createMachine, interpret } from 'xstate';
 
 const alarmClockMachine = createMachine(
   {

@@ -28,5 +28,3 @@ const vendingMachine = createMachine(
     },
   }
 );
-
-vendingMachine;
