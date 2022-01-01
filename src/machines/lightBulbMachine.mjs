@@ -44,7 +44,7 @@ const lightBulbMachine = createMachine(
         color: event.color,
       })),
       sendContext: (context, event) => {
-        console.log('context: ', context);
+        console.log('context:', context);
       },
     },
   }
