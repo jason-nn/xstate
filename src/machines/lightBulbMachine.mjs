@@ -6,14 +6,14 @@ const lightBulbMachine = createMachine({
   states: {
     unlit: {
       on: {
-        BREAK: 'broken',
-        TOGGLE: 'lit',
+        BREAK: { target: 'broken' },
+        TOGGLE: { target: 'lit' },
       },
     },
     lit: {
       on: {
-        BREAK: 'broken',
-        TOGGLE: 'unlit',
+        BREAK: { target: 'broken' },
+        TOGGLE: { target: 'unlit' },
       },
     },
     broken: {
@@ -23,19 +23,23 @@ const lightBulbMachine = createMachine({
   strict: true,
 });
 
-export default lightBulbMachine;
+// export default lightBulbMachine;
 
 // console.log(lightBulbMachine.initialState.value);
-// => 'unlit'
+// // => 'unlit'
 
 // console.log(lightBulbMachine.transition('unlit', 'BREAK').value);
-// => 'broken'
+// // => 'broken'
 
 // const lightBulbService = interpret(lightBulbMachine).onTransition((state) =>
 //   console.log(state.value)
 // );
 
 // lightBulbService.start();
+// // => 'unlit'
 
-// lightBulbService.send('TOGGLE');
-// lightBulbService.send('BREAK');
+// lightBulbService.send({ type: 'TOGGLE' });
+// // => 'lit'
+
+// lightBulbService.send({ type: 'BREAK' });
+// // => 'broken'
