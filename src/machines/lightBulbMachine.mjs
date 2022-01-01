@@ -62,7 +62,7 @@ lightBulbService.start();
 // => 'lit'
 
 // lightBulbService.send({ type: 'TOGGLE' });
-// // => 'unlit'
+// => 'unlit'
 
 // lightBulbService.send({ type: 'BREAK', location: 'living room' });
 // => 'broken'

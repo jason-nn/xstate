@@ -25,9 +25,9 @@ export default promiseMachine;
 //   console.log(state.value)
 // );
 
-// // Start the service
+// Start the service
 // promiseService.start();
-// // => 'pending'
+// => 'pending'
 
 // promiseService.send({ type: 'RESOLVE' });
-// // => 'resolved'
+// => 'resolved'
