@@ -7,18 +7,22 @@ const lightBulbMachine = createMachine(
     states: {
       unlit: {
         on: {
-          BREAK: { target: 'broken', actions: ['sendBrokenMessage'] },
+          // BREAK: { target: 'broken', actions: ['sendBrokenMessage'] },
+          BREAK: { target: 'broken' },
           TOGGLE: { target: 'lit' },
         },
       },
       lit: {
         on: {
-          BREAK: { target: 'broken', actions: ['sendBrokenMessage'] },
+          // BREAK: { target: 'broken', actions: ['sendBrokenMessage'] },
+          BREAK: { target: 'broken' },
           TOGGLE: { target: 'unlit' },
         },
+        exit: ['sendLightOffMessage'],
       },
       broken: {
         type: 'final',
+        entry: ['sendBrokenMessage'],
       },
     },
     strict: true,
@@ -27,8 +31,9 @@ const lightBulbMachine = createMachine(
     actions: {
       sendBrokenMessage: (context, event) => {
         console.log(`the light in the ${event.location} is broken`);
-        console.log('context: ', context);
-        console.log('event: ', event);
+      },
+      sendLightOffMessage: (context, event) => {
+        console.log(`the room is now dark and cold`);
       },
     },
   }
@@ -51,6 +56,9 @@ lightBulbService.start();
 
 // lightBulbService.send({ type: 'TOGGLE' });
 // // => 'lit'
+
+// lightBulbService.send({ type: 'TOGGLE' });
+// // => 'unlit'
 
 lightBulbService.send({ type: 'BREAK', location: 'living room' });
 // => 'broken'
