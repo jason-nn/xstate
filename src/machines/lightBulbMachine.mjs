@@ -50,17 +50,15 @@ const lightBulbMachine = createMachine(
   }
 );
 
-// export default lightBulbMachine;
-
 // console.log(lightBulbMachine.initialState.value);
 // => 'unlit'
 
 // console.log(lightBulbMachine.transition('unlit', 'BREAK').value);
 // => 'broken'
 
-// const lightBulbService = interpret(lightBulbMachine).onTransition((state) =>
-//   console.log(state.value)
-// );
+const lightBulbService = interpret(lightBulbMachine).onTransition((state) =>
+  console.log(state.value)
+);
 
 // lightBulbService.start();
 // => 'unlit'

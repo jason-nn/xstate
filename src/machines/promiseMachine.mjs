@@ -21,9 +21,9 @@ const promiseMachine = createMachine({
 
 export default promiseMachine;
 
-// const promiseService = interpret(promiseMachine).onTransition((state) =>
-//   console.log(state.value)
-// );
+const promiseService = interpret(promiseMachine).onTransition((state) =>
+  console.log(state.value)
+);
 
 // Start the service
 // promiseService.start();
