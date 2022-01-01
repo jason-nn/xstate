@@ -17,6 +17,7 @@ const lightBulbMachine = createMachine(
           // BREAK: { target: 'broken', actions: ['sendBrokenMessage'] },
           BREAK: { target: 'broken' },
           TOGGLE: { target: 'unlit' },
+          NOTHING: { target: 'lit', internal: true },
         },
         exit: ['sendLightOffMessage'],
       },
@@ -55,10 +56,13 @@ lightBulbService.start();
 // => 'unlit'
 
 // lightBulbService.send({ type: 'TOGGLE' });
-// // => 'lit'
+// => 'lit'
+
+// lightBulbService.send({ type: 'NOTHING' });
+// => 'lit'
 
 // lightBulbService.send({ type: 'TOGGLE' });
 // // => 'unlit'
 
-lightBulbService.send({ type: 'BREAK', location: 'living room' });
+// lightBulbService.send({ type: 'BREAK', location: 'living room' });
 // => 'broken'
