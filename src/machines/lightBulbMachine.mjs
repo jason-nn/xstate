@@ -1,9 +1,12 @@
-import { createMachine, interpret } from 'xstate';
+import { assign, createMachine, interpret } from 'xstate';
 
 const lightBulbMachine = createMachine(
   {
     id: 'lightBulb',
     initial: 'unlit',
+    context: {
+      color: 'white',
+    },
     states: {
       unlit: {
         on: {
@@ -18,6 +21,7 @@ const lightBulbMachine = createMachine(
           BREAK: { target: 'broken' },
           TOGGLE: { target: 'unlit' },
           NOTHING: { target: 'lit', internal: true },
+          CHANGE_COLOR: { actions: ['changeColor', 'sendContext'] },
         },
         exit: ['sendLightOffMessage'],
       },
@@ -36,6 +40,12 @@ const lightBulbMachine = createMachine(
       sendLightOffMessage: (context, event) => {
         console.log(`the room is now dark and cold`);
       },
+      changeColor: assign((context, event) => ({
+        color: event.color,
+      })),
+      sendContext: (context, event) => {
+        console.log('context: ', context);
+      },
     },
   }
 );
@@ -43,19 +53,22 @@ const lightBulbMachine = createMachine(
 // export default lightBulbMachine;
 
 // console.log(lightBulbMachine.initialState.value);
-// // => 'unlit'
+// => 'unlit'
 
 // console.log(lightBulbMachine.transition('unlit', 'BREAK').value);
-// // => 'broken'
+// => 'broken'
 
-const lightBulbService = interpret(lightBulbMachine).onTransition((state) =>
-  console.log(state.value)
-);
+// const lightBulbService = interpret(lightBulbMachine).onTransition((state) =>
+//   console.log(state.value)
+// );
 
-lightBulbService.start();
+// lightBulbService.start();
 // => 'unlit'
 
 // lightBulbService.send({ type: 'TOGGLE' });
+// => 'lit'
+
+// lightBulbService.send({ type: 'CHANGE_COLOR', color: 'blue' });
 // => 'lit'
 
 // lightBulbService.send({ type: 'NOTHING' });
